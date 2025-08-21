@@ -13,6 +13,7 @@ import TodoProcessing from '../../lib/components/ToDoProcessingForm';
 import { FrontEventLoggerReceiver } from '../../lib/processors/FrontEndReceivingAdresseOfficielleProcessor';
 import EventTracker from '../../lib/components/EventTracker';
 import styles from './page.module.css';
+import ChangeAddressCommandForm from '../../lib/components/ChangeAddressCommandForm';
 
 export default function Home() {
   const subscriberRef = useRef(null);
@@ -41,15 +42,7 @@ export default function Home() {
     <div className={styles.container}>
       <h1 style={{ textAlign: 'center', marginBottom: '30px' }}>Changement Adresse - Outbox - Inbox - ToDo List</h1>
 
-      {/* EVENT TRACKER SECTION */}
-      <div>
-        <h2 className={styles.sectionHeader}>EVENT TRACKER</h2>
-        <div className={styles.eventTrackerContainer}>
-          <div className={styles.eventTrackerInner}>
-            <EventTracker />
-          </div>
-        </div>
-      </div>
+
 
       {/* FRONT END - BUSINESS */}
       <div>
@@ -92,6 +85,9 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <div className={`${styles.card} ${styles.cardLast}`}>
+            <ChangeAddressCommandForm />
+        </div>
 
       {/* BACK END - INFRA */}
       <div>
@@ -102,6 +98,16 @@ export default function Home() {
           </div>
           <div className={`${styles.cardInfra} ${styles.cardLast}`}>
             <InboxControls />
+          </div>
+        </div>
+      </div>
+
+            {/* EVENT TRACKER SECTION */}
+      <div>
+        <h2 className={styles.sectionHeader}>EVENT TRACKER</h2>
+        <div className={styles.eventTrackerContainer}>
+          <div className={styles.eventTrackerInner}>
+            <EventTracker />
           </div>
         </div>
       </div>
