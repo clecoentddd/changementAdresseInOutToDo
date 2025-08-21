@@ -1,95 +1,151 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+
+import { useEffect } from 'react';
+import { EventBus } from '../../lib/infrastructure/EventBus';
+import CreateAccountForm from '../../lib/components/CreateAccountForm';
+import AccountsList from '../../lib/components/AccountsList';
+import OutboxControls from '../../lib/components/OutboxControls';
+import InboxList from '../../lib/components/InboxList';
+import InboxControls from '../../lib/components/InboxControls';
+import TodoList from '../../lib/components/ToDoList';
+import FrontEventList from '../../lib/components/FrontEventList';
+import { InboxSubscriber } from '../../lib/processors/InboxSubscriber';
+import TodoProcessing from '../../lib/components/ToDoProcessingForm';
+import { FrontEventLoggerReceiver } from '../../lib/processors/FrontEndReceivingAdresseOfficielleProcessor';
+
+
+ 
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.js</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+   useEffect(() => {
+    // Register the subscriber for 'addressChanged' events
+    const subscriber = new InboxSubscriber(EventBus, new Set(['addressChanged']));
+    console.log('[Home] InboxSubscriber registered for addressChanged');
+
+    // Instantiate FrontEventLogger
+    const FELoggerReceiver = new FrontEventLoggerReceiver();
+    console.log('[Home] FrontEventLogger subscribed to NouvelleAdresseOfficiellePublié');
+
+  }, []);
+
+return (
+  <div className="container">
+    <h1 style={{ textAlign: 'center', marginBottom: '30px' }}>Changement Adresse - Outbox - Inbox - ToDo List</h1>
+
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
+      {/* FRONT END - BUSINESS */}
+      <div>
+        <h2 style={{ textAlign: 'center', marginBottom: '15px', color: '#495057' }}>FRONT END - BUSINESS</h2>
+        <div style={{
+          display: 'flex',
+          gap: '0',
+          border: '1px solid #e9ecef',
+          borderRadius: '8px',
+          overflow: 'hidden'
+        }}>
+          <div style={{
+            flex: 1,
+            padding: '20px',
+            background: '#fff',
+            borderRight: '1px solid #e9ecef'
+          }}>
+            <CreateAccountForm />
+          </div>
+          <div style={{
+            flex: 1,
+            padding: '20px',
+            background: '#fff'
+          }}>
+            <AccountsList />
+          </div>
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
+
+      {/* FRONT END - INFRA */}
+      <div>
+        <h2 style={{ textAlign: 'center', marginBottom: '15px', color: '#495057' }}>FRONT END - INFRA</h2>
+        <div style={{
+          display: 'flex',
+          gap: '0',
+          border: '1px solid #e9ecef',
+          borderRadius: '8px',
+          overflow: 'hidden',
+          backgroundColor: '#fff5f5'
+        }}>
+          <div style={{
+            flex: 1,
+            padding: '20px',
+            borderRight: '1px solid #e9ecef'
+          }}>
+            <FrontEventList />
+          </div>
+          <div style={{
+            flex: 1,
+            padding: '20px'
+          }}>
+            <OutboxControls />
+          </div>
+        </div>
+      </div>
+
+      {/* BACK END - BUSINESS */}
+      <div>
+        <h2 style={{ textAlign: 'center', marginBottom: '15px', color: '#495057' }}>BACK END - BUSINESS</h2>
+        <div style={{
+          display: 'flex',
+          gap: '0',
+          border: '1px solid #e9ecef',
+          borderRadius: '8px',
+          overflow: 'hidden'
+        }}>
+          <div style={{
+            flex: 1,
+            padding: '20px',
+            background: '#fff',
+            borderRight: '1px solid #e9ecef'
+          }}>
+            <TodoList />
+          </div>
+          <div style={{
+            flex: 1,
+            padding: '20px'
+          }}>
+            <TodoProcessing />
+          </div>
+        </div>
+      </div>
+
+      {/* BACK END - INFRA */}
+      <div>
+        <h2 style={{ textAlign: 'center', marginBottom: '15px', color: '#495057' }}>BACK END - INFRA</h2>
+        <div style={{
+          display: 'flex',
+          gap: '0',
+          border: '1px solid #e9ecef',
+          borderRadius: '8px',
+          overflow: 'hidden',
+          backgroundColor: '#f5f8ff'
+        }}>
+          <div style={{
+            flex: 1,
+            padding: '20px',
+            borderRight: '1px solid #e9ecef'
+          }}>
+            <InboxList />
+          </div>
+          <div style={{
+            flex: 1,
+            padding: '20px'
+          }}>
+            <InboxControls />
+          </div>
+        </div>
+      </div>
     </div>
-  );
+  </div>
+);
+
+
+
 }

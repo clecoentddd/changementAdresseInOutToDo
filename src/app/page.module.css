@@ -145,7 +145,7 @@ a.secondary {
 
   .ctas a {
     font-size: 14px;
-    height: 40px;
+    height: 20px;
     padding: 0 16px;
   }
 
@@ -165,3 +165,93 @@ a.secondary {
     filter: invert();
   }
 }
+
+/* Layout Structure */
+.grid-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+.section-header {
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  color: #495057;
+  padding: 10px 0;
+  border-bottom: 2px solid #dee2e6;
+  margin: 15px 0 5px 0;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  grid-column: 1 / -1;
+}
+
+.section-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0; /* No gap between cards */
+}
+
+.component-card {
+  background: white;
+  border: 1px solid #e9ecef;
+  padding: 20px;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.component-card:first-child {
+  border-right: none;
+  border-radius: 8px 0 0 8px;
+}
+
+.component-card:last-child {
+  border-radius: 0 8px 8px 0;
+}
+
+.component-card + .component-card {
+  border-left: none;
+}
+
+/* Section-specific background colors */
+.grid-layout > .section-row:nth-of-type(1) > .component-card {
+  background-color: #fff;
+}
+
+.grid-layout > .section-row:nth-of-type(2) > .component-card {
+  background-color: #fff5f5; /* Light red for FRONT END - INFRA */
+}
+
+.grid-layout > .section-row:nth-of-type(3) > .component-card {
+  background-color: #fff;
+}
+
+.grid-layout > .section-row:nth-of-type(4) > .component-card {
+  background-color: #f5f8ff; /* Light blue for BACK END - INFRA */
+}
+
+/* Divider between cards */
+.component-card + .component-card {
+  border-left: 1px solid #e9ecef;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .section-row {
+    grid-template-columns: 1fr;
+  }
+
+  .component-card {
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #e9ecef;
+  }
+
+  .component-card + .component-card {
+    border-left: 1px solid #e9ecef;
+    margin-top: 20px;
+  }
+}
+

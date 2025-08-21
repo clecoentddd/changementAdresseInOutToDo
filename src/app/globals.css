@@ -1,42 +1,138 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
   margin: 0;
+  padding: 16px;
+  background-color: #f0f2f5;
+  color: #222;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+/* Base card style */
+.card,
+.infracard {
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  transition: all 0.25s ease;
+  font-size: 14px;
+}
+
+/* User-facing card */
+/* User-facing card */
+.card {
+  background: #ffffff;
+  border-left: 4px solid #3ba99c; /* business teal accent */
+}
+
+/* Infra card */
+.infracard {
+  background: #f7f9fc;            /* soft technical gray-blue */
+  border-left: 4px solid #5a6a85; /* neutral steel accent */
+  font-size: 13px;
+  color: #333;
+}
+
+/* Collapsible section headers */
+.collapsible {
+  cursor: pointer;
+  font-weight: 600;
+  padding: 6px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.collapsible::after {
+  content: "▾";
+  font-size: 12px;
+  transition: transform 0.3s ease;
+}
+
+.collapsible.active::after {
+  transform: rotate(-180deg);
+}
+
+.collapsible-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.4s ease;
+  opacity: 0;
+  margin-top: 4px;
+}
+
+.collapsible-content.open {
+  max-height: 1000px; /* enough for expanded payloads */
+  opacity: 1;
+}
+
+/* Inputs & buttons */
+.input {
+  width: 100%;
+  padding: 6px 8px;
+  margin: 6px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.button {
+  background: #0070f3;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+.button:hover {
+  background: #005bb5;
+}
+
+/* Record rows (no bullet points) */
+.account-item,
+.todo-item,
+.inbox-item {
+  margin: 4px 0;
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: #f9f9f9;
+  border: 1px solid #eee;
+}
+
+/* Collapsible inbox payload */
+.inbox-payload {
+  background: #f3f3f3;
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  overflow-x: auto;
+  margin-top: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.inbox-payload.collapsed {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-height: 18px;
+}
+
+ul, ol {
+  list-style: none;
+  padding-left: 0;
+  margin-left: 0;
 }
