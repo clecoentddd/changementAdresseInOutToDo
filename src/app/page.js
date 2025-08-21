@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { EventBus } from '../../lib/infrastructure/EventBus';
 import CreateAccountForm from '../../lib/components/CreateAccountForm';
 import AccountsList from '../../lib/components/AccountsList';
@@ -18,17 +18,32 @@ import EventTracker from '../../lib/components/EventTracker';
  
 
 export default function Home() {
+  // Use useRef to store the subscriber instance
+  const subscriberRef = useRef(null);
+  const feLoggerRef = useRef(null);
 
-   useEffect(() => {
-    // Register the subscriber for 'addressChanged' events
-    const subscriber = new InboxSubscriber(EventBus, new Set(['addressChanged']));
-    console.log('[Home] InboxSubscriber registered for addressChanged');
+    useEffect(() => {
+    // Create InboxSubscriber ONLY ONCE
+      if (!subscriberRef.current) {
+        subscriberRef.current = new InboxSubscriber();
+        console.log('[Home] InboxSubscriber registered for changementAdresseRequis');
+          } else {
+            console.warn('[Home] InboxSubscriber ALREADY EXISTS. Skipping.');
+        }
 
-    // Instantiate FrontEventLogger
-    const FELoggerReceiver = new FrontEventLoggerReceiver();
-    console.log('[Home] FrontEventLogger subscribed to NouvelleAdresseOfficiellePublié');
+    // Create FrontEventLoggerReceiver ONLY ONCE
+    if (!feLoggerRef.current) {
+      feLoggerRef.current = new FrontEventLoggerReceiver();
+      console.log('[Home] FrontEventLogger subscribed to NouvelleAdresseOfficiellePubliée');
+    }
 
-  }, []);
+    // Cleanup (optional, if you need to unsubscribe later)
+    return () => {
+      // Unsubscribe if needed (e.g., when component unmounts)
+      // subscriberRef.current?.unsubscribe();
+      // feLoggerRef.current?.unsubscribe();
+    };
+  }, []); // Empty dependency array = runs once
 
 return (
   <div className="container">
