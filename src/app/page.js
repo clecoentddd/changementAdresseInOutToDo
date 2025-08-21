@@ -44,9 +44,9 @@ export default function Home() {
 
 
 
-      {/* FRONT END - BUSINESS */}
+      {/* FRONT END - PORTAIL NUMERIQUE */}
       <div>
-        <h2 className={styles.sectionHeader}>FRONT END - BUSINESS</h2>
+        <h2 className={styles.sectionHeader}>FRONT END - PORTAIL NUMERIQUE</h2>
         <div className={styles.cardContainer}>
           <div className={`${styles.card} ${styles.cardFirst}`}>
             <CreateAccountForm />
@@ -57,9 +57,9 @@ export default function Home() {
         </div>
       </div>
 
-      {/* FRONT END - INFRA */}
+      {/* FRONT END - SOFTWARE INFRASTRUCTURE */}
       <div>
-        <h2 className={styles.sectionHeader}>FRONT END - INFRA</h2>
+        <h2 className={styles.sectionHeader}>FRONT END - SOFTWARE INFRASTRUCTURE </h2>
         <div className={`${styles.cardContainer} ${styles.frontEndInfraContainer}`}>
           <div className={`${styles.cardInfra} ${styles.cardFirst}`}>
             <FrontEventList />
@@ -73,9 +73,9 @@ export default function Home() {
       {/* Separator before BACK END - BUSINESS */}
       <div className={styles.separator}></div>
 
-      {/* BACK END - BUSINESS */}
+      {/* BACK END - ADMINISTRATION */}
       <div>
-        <h2 className={styles.sectionHeader}>BACK END - BUSINESS</h2>
+        <h2 className={styles.sectionHeader}>BACK END - ADMINISTRATION</h2>
         <div className={styles.cardContainer}>
           <div className={`${styles.card} ${styles.cardFirst}`}>
             <TodoList />
@@ -89,9 +89,9 @@ export default function Home() {
             <ChangeAddressCommandForm />
         </div>
 
-      {/* BACK END - INFRA */}
+      {/* BACK END - SOFTWARE INFRASTRUCTURE */}
       <div>
-        <h2 className={styles.sectionHeader}>BACK END - INFRA</h2>
+        <h2 className={styles.sectionHeader}>BACK END - SOFTWARE INFRASTRUCTURE </h2>
         <div className={`${styles.cardContainer} ${styles.backEndInfraContainer}`}>
           <div className={`${styles.cardInfra} ${styles.cardFirst}`}>
             <InboxList />
