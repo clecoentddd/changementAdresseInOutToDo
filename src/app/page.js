@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useRef } from 'react';
 import { EventBus } from '../../lib/infrastructure/EventBus';
 import CreateAccountForm from '../../lib/components/CreateAccountForm';
@@ -11,56 +10,42 @@ import TodoList from '../../lib/components/ToDoList';
 import FrontEventList from '../../lib/components/FrontEventList';
 import { InboxSubscriber } from '../../lib/processors/InboxSubscriber';
 import TodoProcessing from '../../lib/components/ToDoProcessingForm';
-
 import { FrontEventLoggerReceiver } from '../../lib/processors/FrontEndReceivingAdresseOfficielleProcessor';
-
 import EventTracker from '../../lib/components/EventTracker';
- 
+import styles from './page.module.css';
 
 export default function Home() {
-  // Use useRef to store the subscriber instance
   const subscriberRef = useRef(null);
   const feLoggerRef = useRef(null);
 
-    useEffect(() => {
-    // Create InboxSubscriber ONLY ONCE
-      if (!subscriberRef.current) {
-        subscriberRef.current = new InboxSubscriber();
-        console.log('[Home] InboxSubscriber registered for changementAdresseRequis');
-          } else {
-            console.warn('[Home] InboxSubscriber ALREADY EXISTS. Skipping.');
-        }
-
-    // Create FrontEventLoggerReceiver ONLY ONCE
-    if (!feLoggerRef.current) {
-      feLoggerRef.current = new FrontEventLoggerReceiver();
-      console.log('[Home] FrontEventLogger subscribed to NouvelleAdresseOfficiellePubliée');
+  useEffect(() => {
+    if (!subscriberRef.current) {
+      subscriberRef.current = new InboxSubscriber();
+      console.log('[Home] InboxSubscriber registered for FrontOffice_changementAdresseRequis');
+    } else {
+      console.warn('[Home] InboxSubscriber ALREADY EXISTS. Skipping.');
     }
 
-    // Cleanup (optional, if you need to unsubscribe later)
+    if (!feLoggerRef.current) {
+      feLoggerRef.current = new FrontEventLoggerReceiver();
+      console.log('[Home] FrontEventLogger subscribed to BackOffice_NouvelleAdresseOfficiellePubliée');
+    }
+
     return () => {
-      // Unsubscribe if needed (e.g., when component unmounts)
       // subscriberRef.current?.unsubscribe();
       // feLoggerRef.current?.unsubscribe();
     };
-  }, []); // Empty dependency array = runs once
+  }, []);
 
-return (
-  <div className="container">
-    <h1 style={{ textAlign: 'center', marginBottom: '30px' }}>Changement Adresse - Outbox - Inbox - ToDo List</h1>
+  return (
+    <div className={styles.container}>
+      <h1 style={{ textAlign: 'center', marginBottom: '30px' }}>Changement Adresse - Outbox - Inbox - ToDo List</h1>
 
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
-      
-            {/* EVENT TRACKER SECTION - NEW */}
+      {/* EVENT TRACKER SECTION */}
       <div>
-        <h2 style={{ textAlign: 'center', marginBottom: '15px', color: '#495057' }}>EVENT TRACKER</h2>
-        <div style={{
-          border: '1px solid #e9ecef',
-          borderRadius: '8px',
-          overflow: 'hidden',
-          backgroundColor: '#f0f8ff'
-        }}>
-          <div style={{ padding: '20px' }}>
+        <h2 className={styles.sectionHeader}>EVENT TRACKER</h2>
+        <div className={styles.eventTrackerContainer}>
+          <div className={styles.eventTrackerInner}>
             <EventTracker />
           </div>
         </div>
@@ -68,27 +53,12 @@ return (
 
       {/* FRONT END - BUSINESS */}
       <div>
-        <h2 style={{ textAlign: 'center', marginBottom: '15px', color: '#495057' }}>FRONT END - BUSINESS</h2>
-        <div style={{
-          display: 'flex',
-          gap: '0',
-          border: '1px solid #e9ecef',
-          borderRadius: '8px',
-          overflow: 'hidden'
-        }}>
-          <div style={{
-            flex: 1,
-            padding: '20px',
-            background: '#fff',
-            borderRight: '1px solid #e9ecef'
-          }}>
+        <h2 className={styles.sectionHeader}>FRONT END - BUSINESS</h2>
+        <div className={styles.cardContainer}>
+          <div className={`${styles.card} ${styles.cardFirst}`}>
             <CreateAccountForm />
           </div>
-          <div style={{
-            flex: 1,
-            padding: '20px',
-            background: '#fff'
-          }}>
+          <div className={`${styles.card} ${styles.cardLast}`}>
             <AccountsList />
           </div>
         </div>
@@ -96,53 +66,28 @@ return (
 
       {/* FRONT END - INFRA */}
       <div>
-        <h2 style={{ textAlign: 'center', marginBottom: '15px', color: '#495057' }}>FRONT END - INFRA</h2>
-        <div style={{
-          display: 'flex',
-          gap: '0',
-          border: '1px solid #e9ecef',
-          borderRadius: '8px',
-          overflow: 'hidden',
-          backgroundColor: '#fff5f5'
-        }}>
-          <div style={{
-            flex: 1,
-            padding: '20px',
-            borderRight: '1px solid #e9ecef'
-          }}>
+        <h2 className={styles.sectionHeader}>FRONT END - INFRA</h2>
+        <div className={`${styles.cardContainer} ${styles.frontEndInfraContainer}`}>
+          <div className={`${styles.cardInfra} ${styles.cardFirst}`}>
             <FrontEventList />
           </div>
-          <div style={{
-            flex: 1,
-            padding: '20px'
-          }}>
+          <div className={`${styles.cardInfra} ${styles.cardLast}`}>
             <OutboxControls />
           </div>
         </div>
       </div>
 
+      {/* Separator before BACK END - BUSINESS */}
+      <div className={styles.separator}></div>
+
       {/* BACK END - BUSINESS */}
       <div>
-        <h2 style={{ textAlign: 'center', marginBottom: '15px', color: '#495057' }}>BACK END - BUSINESS</h2>
-        <div style={{
-          display: 'flex',
-          gap: '0',
-          border: '1px solid #e9ecef',
-          borderRadius: '8px',
-          overflow: 'hidden'
-        }}>
-          <div style={{
-            flex: 1,
-            padding: '20px',
-            background: '#fff',
-            borderRight: '1px solid #e9ecef'
-          }}>
+        <h2 className={styles.sectionHeader}>BACK END - BUSINESS</h2>
+        <div className={styles.cardContainer}>
+          <div className={`${styles.card} ${styles.cardFirst}`}>
             <TodoList />
           </div>
-          <div style={{
-            flex: 1,
-            padding: '20px'
-          }}>
+          <div className={`${styles.card} ${styles.cardLast}`}>
             <TodoProcessing />
           </div>
         </div>
@@ -150,32 +95,16 @@ return (
 
       {/* BACK END - INFRA */}
       <div>
-        <h2 style={{ textAlign: 'center', marginBottom: '15px', color: '#495057' }}>BACK END - INFRA</h2>
-        <div style={{
-          display: 'flex',
-          gap: '0',
-          border: '1px solid #e9ecef',
-          borderRadius: '8px',
-          overflow: 'hidden',
-          backgroundColor: '#f5f8ff'
-        }}>
-          <div style={{
-            flex: 1,
-            padding: '20px',
-            borderRight: '1px solid #e9ecef'
-          }}>
+        <h2 className={styles.sectionHeader}>BACK END - INFRA</h2>
+        <div className={`${styles.cardContainer} ${styles.backEndInfraContainer}`}>
+          <div className={`${styles.cardInfra} ${styles.cardFirst}`}>
             <InboxList />
           </div>
-          <div style={{
-            flex: 1,
-            padding: '20px'
-          }}>
+          <div className={`${styles.cardInfra} ${styles.cardLast}`}>
             <InboxControls />
           </div>
         </div>
       </div>
     </div>
-  </div>
-);
-
+  );
 }

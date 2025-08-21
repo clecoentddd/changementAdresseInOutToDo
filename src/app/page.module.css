@@ -1,257 +1,118 @@
-.page {
-  --gray-rgb: 0, 0, 0;
-  --gray-alpha-200: rgba(var(--gray-rgb), 0.08);
-  --gray-alpha-100: rgba(var(--gray-rgb), 0.05);
-
-  --button-primary-hover: #383838;
-  --button-secondary-hover: #f2f2f2;
-
-  display: grid;
-  grid-template-rows: 20px 1fr 20px;
-  align-items: center;
-  justify-items: center;
-  min-height: 100svh;
-  padding: 80px;
-  gap: 64px;
-  font-family: var(--font-geist-sans);
-}
-
-@media (prefers-color-scheme: dark) {
-  .page {
-    --gray-rgb: 255, 255, 255;
-    --gray-alpha-200: rgba(var(--gray-rgb), 0.145);
-    --gray-alpha-100: rgba(var(--gray-rgb), 0.06);
-
-    --button-primary-hover: #ccc;
-    --button-secondary-hover: #1a1a1a;
-  }
-}
-
-.main {
+/* page.module.css */
+.container {
   display: flex;
   flex-direction: column;
-  gap: 32px;
-  grid-row-start: 2;
+  gap: 30px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-.main ol {
-  font-family: var(--font-geist-mono);
-  padding-left: 0;
-  margin: 0;
-  font-size: 14px;
-  line-height: 24px;
-  letter-spacing: -0.01em;
-  list-style-position: inside;
-}
-
-.main li:not(:last-of-type) {
-  margin-bottom: 8px;
-}
-
-.main code {
-  font-family: inherit;
-  background: var(--gray-alpha-100);
-  padding: 2px 4px;
-  border-radius: 4px;
-  font-weight: 600;
-}
-
-.ctas {
+/* Card container styles */
+.cardContainer {
   display: flex;
-  gap: 16px;
-}
-
-.ctas a {
-  appearance: none;
-  border-radius: 128px;
-  height: 48px;
-  padding: 0 20px;
-  border: 1px solid transparent;
-  transition:
-    background 0.2s,
-    color 0.2s,
-    border-color 0.2s;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  line-height: 20px;
-  font-weight: 500;
-}
-
-a.primary {
-  background: var(--foreground);
-  color: var(--background);
-  gap: 8px;
-}
-
-a.secondary {
-  border-color: var(--gray-alpha-200);
-  min-width: 158px;
-}
-
-.footer {
-  grid-row-start: 3;
-  display: flex;
-  gap: 24px;
-}
-
-.footer a {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.footer img {
-  flex-shrink: 0;
-}
-
-/* Enable hover only on non-touch devices */
-@media (hover: hover) and (pointer: fine) {
-  a.primary:hover {
-    background: var(--button-primary-hover);
-    border-color: transparent;
-  }
-
-  a.secondary:hover {
-    background: var(--button-secondary-hover);
-    border-color: transparent;
-  }
-
-  .footer a:hover {
-    text-decoration: underline;
-    text-underline-offset: 4px;
-  }
-}
-
-@media (max-width: 600px) {
-  .page {
-    padding: 32px;
-    padding-bottom: 80px;
-  }
-
-  .main {
-    align-items: center;
-  }
-
-  .main ol {
-    text-align: center;
-  }
-
-  .ctas {
-    flex-direction: column;
-  }
-
-  .ctas a {
-    font-size: 14px;
-    height: 20px;
-    padding: 0 16px;
-  }
-
-  a.secondary {
-    min-width: auto;
-  }
-
-  .footer {
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .logo {
-    filter: invert();
-  }
-}
-
-/* Layout Structure */
-.grid-layout {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+  gap: 0;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  overflow: hidden;
   width: 100%;
 }
 
-.section-header {
-  text-align: center;
-  font-weight: bold;
-  font-size: 18px;
-  color: #495057;
-  padding: 10px 0;
-  border-bottom: 2px solid #dee2e6;
-  margin: 15px 0 5px 0;
-  background-color: #f8f9fa;
-  border-radius: 4px;
-  grid-column: 1 / -1;
-}
-
-.section-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0; /* No gap between cards */
-}
-
-.component-card {
-  background: white;
-  border: 1px solid #e9ecef;
+/* Individual card styles */
+.card {
+  flex: 1;
   padding: 20px;
+  background: #9ec6e8;
   min-height: 200px;
   display: flex;
   flex-direction: column;
 }
 
-.component-card:first-child {
-  border-right: none;
-  border-radius: 8px 0 0 8px;
+.cardInfra {
+  flex: 1;
+  padding: 20px;
+  background: #af8b8b;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
 }
 
-.component-card:last-child {
-  border-radius: 0 8px 8px 0;
+/* First card in container */
+.cardFirst {
+  border-right: 1px solid #e9ecef;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
-.component-card + .component-card {
-  border-left: none;
+/* Last card in container */
+.cardLast {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
-/* Section-specific background colors */
-.grid-layout > .section-row:nth-of-type(1) > .component-card {
-  background-color: #fff;
+/* Section header styles */
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #495057;
 }
 
-.grid-layout > .section-row:nth-of-type(2) > .component-card {
-  background-color: #fff5f5; /* Light red for FRONT END - INFRA */
+/* Event Tracker specific styles */
+.eventTrackerContainer {
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #f0f8ff;
+  width: 100%;
 }
 
-.grid-layout > .section-row:nth-of-type(3) > .component-card {
-  background-color: #fff;
+.eventTrackerInner {
+  padding: 20px;
 }
 
-.grid-layout > .section-row:nth-of-type(4) > .component-card {
-  background-color: #f5f8ff; /* Light blue for BACK END - INFRA */
+/* FRONT END - INFRA specific background */
+.frontEndInfraContainer {
+  background-color: #fff5f5;
 }
 
-/* Divider between cards */
-.component-card + .component-card {
-  border-left: 1px solid #e9ecef;
+/* BACK END - INFRA specific background */
+.backEndInfraContainer {
+  background-color: #f5f8ff;
 }
 
 /* Responsive adjustments */
 @media (max-width: 992px) {
-  .section-row {
-    grid-template-columns: 1fr;
+  .cardContainer {
+    flex-direction: column;
   }
 
-  .component-card {
+  .card {
     border-radius: 8px;
     margin-bottom: 20px;
     border: 1px solid #e9ecef;
   }
 
-  .component-card + .component-card {
-    border-left: 1px solid #e9ecef;
-    margin-top: 20px;
+  .cardFirst {
+    border-right: 1px solid #e9ecef;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+
+  .cardLast {
+    border-radius: 8px;
   }
 }
 
+/* Add this to your page.module.css */
+.separator {
+  height: 6px;
+  background-color: #191d14;
+  margin: 30px 0;
+  width: 100%;
+}
+
+/* Or for more spacing without a line */
+.spacing {
+  margin: 40px 0;
+}
