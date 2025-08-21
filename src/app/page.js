@@ -11,9 +11,10 @@ import TodoList from '../../lib/components/ToDoList';
 import FrontEventList from '../../lib/components/FrontEventList';
 import { InboxSubscriber } from '../../lib/processors/InboxSubscriber';
 import TodoProcessing from '../../lib/components/ToDoProcessingForm';
+
 import { FrontEventLoggerReceiver } from '../../lib/processors/FrontEndReceivingAdresseOfficielleProcessor';
 
-
+import EventTracker from '../../lib/components/EventTracker';
  
 
 export default function Home() {
@@ -34,6 +35,22 @@ return (
     <h1 style={{ textAlign: 'center', marginBottom: '30px' }}>Changement Adresse - Outbox - Inbox - ToDo List</h1>
 
     <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
+      
+            {/* EVENT TRACKER SECTION - NEW */}
+      <div>
+        <h2 style={{ textAlign: 'center', marginBottom: '15px', color: '#495057' }}>EVENT TRACKER</h2>
+        <div style={{
+          border: '1px solid #e9ecef',
+          borderRadius: '8px',
+          overflow: 'hidden',
+          backgroundColor: '#f0f8ff'
+        }}>
+          <div style={{ padding: '20px' }}>
+            <EventTracker />
+          </div>
+        </div>
+      </div>
+
       {/* FRONT END - BUSINESS */}
       <div>
         <h2 style={{ textAlign: 'center', marginBottom: '15px', color: '#495057' }}>FRONT END - BUSINESS</h2>
@@ -145,7 +162,5 @@ return (
     </div>
   </div>
 );
-
-
 
 }
