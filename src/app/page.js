@@ -1,19 +1,19 @@
 "use client";
 import { useEffect, useRef } from 'react';
 import { EventBus } from '../../lib/infrastructure/EventBus';
-import CreateAccountForm from '../../lib/components/CreateAccountForm';
-import AccountsList from '../../lib/components/AccountsList';
+import CreateAccountForm from '../../lib/slices/01_FrontOffice_CréerUnCompte/CreateAccountForm';
+import AccountsList from '../../lib/slices/02_FrontOffice_ListerLesComptes/AccountsList';
 import OutboxControls from '../../lib/components/OutboxControls';
 import InboxList from '../../lib/components/InboxList';
 import InboxControls from '../../lib/components/InboxControls';
-import TodoList from '../../lib/components/ToDoList';
+import TodoList from '../../lib/slices/04_BackOffice_VoirLesTodo/ToDoList';
 import FrontEventList from '../../lib/components/FrontEventList';
 import { InboxSubscriber } from '../../lib/processors/InboxSubscriber';
-import TodoProcessing from '../../lib/components/ToDoProcessingForm';
-import { FrontEventLoggerReceiver } from '../../lib/processors/FrontEndReceivingAdresseOfficielleProcessor';
-import EventTracker from '../../lib/components/EventTracker';
+import TodoProcessing from '../../lib/slices/03_BackOffice_MettreAJourAdresseOfficielle/ToDoProcessingForm';
+import { FrontEventLoggerReceiver } from '../../lib/slices/05_FrontOffice_InsérerAdresseOfficielle/FrontEndReceivingAdresseOfficielleProcessor';
+import EventTracker from '../../lib/slices/11_Tracking/EventTracker';
 import styles from './page.module.css';
-import ChangeAddressCommandForm from '../../lib/components/ChangeAddressCommandForm';
+import ChangeAddressCommandForm from '../../lib/slices/06_BackOffice_ChangerAdresseManuellement/ChangeAddressCommandForm';
 
 export default function Home() {
   const subscriberRef = useRef(null);

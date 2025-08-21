@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { TodoCommandHandler } from "../commands/TodoCommandHandler";
-import { IdGenerator } from "../utils/IdGenerator";
+import { TodoCommandHandler } from "../03_BackOffice_MettreAJourAdresseOfficielle/TodoCommandHandler";
+import { IdGenerator } from "../../utils/IdGenerator";
 
 export default function ChangeAddressCommandForm() {
   const [accountId, setAccountId] = useState("");
