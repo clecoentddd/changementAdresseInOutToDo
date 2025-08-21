@@ -40,7 +40,7 @@ export default function ChangeAddressCommandForm() {
 
   return (
     <div className="card">
-      <h2>Change Address (Command)</h2>
+      <h2>Console d'administration: changement d'adresse</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -56,7 +56,7 @@ export default function ChangeAddressCommandForm() {
           onChange={(e) => setAddress(e.target.value)}
           className="input"
         />
-        <button type="submit" className="button">Submit Command</button>
+        <button type="submit" className="button">Soumettre</button>
       </form>
       {message && <p className="message">{message}</p>}
     </div>
