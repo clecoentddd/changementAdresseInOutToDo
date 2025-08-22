@@ -14,10 +14,14 @@ import { FrontEventLoggerReceiver } from '../../lib/slices/05_FrontOffice_Insér
 import EventTracker from '../../lib/slices/11_Tracking/EventTracker';
 import styles from './page.module.css';
 import ChangeAddressCommandForm from '../../lib/slices/06_BackOffice_ChangerAdresseManuellement/ChangeAddressCommandForm';
+import { accountsProjectionSubscriber } from '../../lib/slices/02_FrontOffice_ListerLesComptes/EventHandler';
 
 export default function Home() {
   const subscriberRef = useRef(null);
   const feLoggerRef = useRef(null);
+
+  // Instantiate the subscriber (this subscribes to the event)
+  const subscriber = accountsProjectionSubscriber;
 
   useEffect(() => {
     if (!subscriberRef.current) {
