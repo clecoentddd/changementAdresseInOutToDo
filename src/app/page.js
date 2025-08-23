@@ -6,14 +6,14 @@ import AccountsList from '../../lib/slices/02_FrontOffice_ListerLesComptes/Accou
 import OutboxControls from '../../lib/components/OutboxControls';
 import InboxList from '../../lib/components/InboxList';
 import InboxControls from '../../lib/components/InboxControls';
-import TodoList from '../../lib/slices/04_BackOffice_VoirLesTodo/ToDoList';
+import TodoList from '../../lib/slices/05_BackOffice_VoirLesTodo/ToDoList';
 import FrontEventList from '../../lib/components/FrontEventList';
 import { InboxSubscriber } from '../../lib/processors/InboxSubscriber';
-import TodoProcessing from '../../lib/slices/03_BackOffice_MettreAJourAdresseOfficielle/ToDoProcessingForm';
-import { FrontEventLoggerReceiver } from '../../lib/slices/05_FrontOffice_InsérerAdresseOfficielle/FrontEndReceivingAdresseOfficielleProcessor';
+import TodoProcessing from '../../lib/slices/06_BackOffice_MettreAJourAdresseOfficielle/ToDoProcessingForm';
+import { FrontEventLoggerReceiver } from '../../lib/slices/07_FrontOffice_InsérerAdresseOfficielle/FrontEndReceivingAdresseOfficielleProcessor';
 import EventTracker from '../../lib/slices/11_Tracking/EventTracker';
 import styles from './page.module.css';
-import ChangeAddressCommandForm from '../../lib/slices/06_BackOffice_ChangerAdresseManuellement/ChangeAddressCommandForm';
+import ChangeAddressCommandForm from '../../lib/slices/04_BackOffice_ChangerAdresseManuellement/ChangeAddressCommandForm';
 import { accountsProjectionSubscriber } from '../../lib/slices/02_FrontOffice_ListerLesComptes/EventHandler';
 
 export default function Home() {
