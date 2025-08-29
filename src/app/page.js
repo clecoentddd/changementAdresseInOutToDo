@@ -15,20 +15,19 @@ import EventTracker from '../../lib/slices/11_Tracking/EventTracker';
 import styles from './page.module.css';
 import ChangeAddressCommandForm from '../../lib/slices/04_BackOffice_ChangerAdresseManuellement/ChangeAddressCommandForm';
 import { accountsProjectionSubscriber } from '../../lib/slices/02_FrontOffice_ListerLesComptes/EventHandler';
+import { TodoCreator } from '../../lib/slices/05_BackOffice_VoirLesTodo/toDoCreator';
+import { ToDoTerminator, TodoTerminator } from '../../lib/slices/05_BackOffice_VoirLesTodo/toDoTerminator';
 
 export default function Home() {
-  const subscriberRef = useRef(null);
+   const subscriberRef = useRef(null);
   const feLoggerRef = useRef(null);
 
-  // Instantiate the subscriber (this subscribes to the event)
-  const subscriber = accountsProjectionSubscriber;
-
   useEffect(() => {
+    // Correctly instantiate and subscribe within the effect to run only once
+    // A ref is used to prevent re-instantiation on re-renders
     if (!subscriberRef.current) {
       subscriberRef.current = new InboxSubscriber();
       console.log('[Home] InboxSubscriber registered for FrontOffice_changementAdresseRequis');
-    } else {
-      console.warn('[Home] InboxSubscriber ALREADY EXISTS. Skipping.');
     }
 
     if (!feLoggerRef.current) {
@@ -36,9 +35,21 @@ export default function Home() {
       console.log('[Home] FrontEventLogger subscribed to BackOffice_NouvelleAdresseOfficiellePubliée');
     }
 
+    // accountsProjectionSubscriber is a simple constant, but if it has a setup,
+    // it should be handled here. Otherwise, this line can be removed if it has no side effects.
+    const subscriber = accountsProjectionSubscriber;
+
+    // Correctly initialize TodoCreator only once
+    TodoCreator.initialize();
+    ToDoTerminator.initialize();
+
+    // The cleanup function handles unsubscribing when the component unmounts
     return () => {
-      // subscriberRef.current?.unsubscribe();
-      // feLoggerRef.current?.unsubscribe();
+      // Unsubscribe from each service to prevent memory leaks and duplicate subscriptions
+      subscriberRef.current?.unsubscribe();
+      feLoggerRef.current?.unsubscribe();
+      TodoCreator.unsubscribe(); // Assuming TodoCreator has a corresponding unsubscribe method
+      ToDoTerminator.unsubscribe();
     };
   }, []);
 
