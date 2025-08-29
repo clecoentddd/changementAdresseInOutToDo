@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { TodoCommandHandler } from "../03_CreerLaToDoDepuisLaInbox/AddTodoCommandHandler";
+import { AddressChangeCommandHandler } from "../03_CreerLaToDoDepuisLaInbox/changeAddressTranslationHandler";
 import { IdGenerator } from "../../utils/IdGenerator";
 
 export default function ChangeAddressCommandForm() {
@@ -23,7 +23,7 @@ export default function ChangeAddressCommandForm() {
 
       console.log("[ChangeAddressCommandForm] Sending event:", event);
 
-      const result = await TodoCommandHandler.handleTodoAdded(event);
+      const result = await AddressChangeCommandHandler.handleAddressChangeCommand(event);
 
       if (result.ok) {
         setMessage(`✅ Command processed successfully (trackingId=${event.trackingId})`);
