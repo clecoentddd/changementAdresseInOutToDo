@@ -16,7 +16,6 @@ import styles from './page.module.css';
 import ChangeAddressCommandForm from '../../lib/slices/04_BackOffice_ChangerAdresseManuellement/ChangeAddressCommandForm';
 import { accountsProjectionSubscriber } from '../../lib/slices/02_FrontOffice_ListerLesComptes/EventHandler';
 import { TodoCreator } from '../../lib/slices/05_BackOffice_VoirLesTodo/toDoCreator';
-import { ToDoTerminator, TodoTerminator } from '../../lib/slices/05_BackOffice_VoirLesTodo/toDoTerminator';
 
 export default function Home() {
    const subscriberRef = useRef(null);
@@ -39,17 +38,12 @@ export default function Home() {
     // it should be handled here. Otherwise, this line can be removed if it has no side effects.
     const subscriber = accountsProjectionSubscriber;
 
-    // Correctly initialize TodoCreator only once
-    TodoCreator.initialize();
-    ToDoTerminator.initialize();
 
     // The cleanup function handles unsubscribing when the component unmounts
     return () => {
       // Unsubscribe from each service to prevent memory leaks and duplicate subscriptions
       subscriberRef.current?.unsubscribe();
       feLoggerRef.current?.unsubscribe();
-      TodoCreator.unsubscribe(); // Assuming TodoCreator has a corresponding unsubscribe method
-      ToDoTerminator.unsubscribe();
     };
   }, []);
 
