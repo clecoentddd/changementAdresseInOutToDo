@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useRef } from 'react';
-import { EventBus } from '../../lib/infrastructure/EventBus';
 import CreateAccountForm from '../../lib/slices/01_FrontOffice_CréerUnCompte/CreateAccountForm';
 import AccountsList from '../../lib/slices/02_FrontOffice_ListerLesComptes/AccountsList';
 import OutboxControls from '../../lib/components/OutboxControls';
@@ -15,11 +14,14 @@ import EventTracker from '../../lib/slices/11_Tracking/EventTracker';
 import styles from './page.module.css';
 import ChangeAddressCommandForm from '../../lib/slices/04_BackOffice_ChangerAdresseManuellement/ChangeAddressCommandForm';
 import { accountsProjectionSubscriber } from '../../lib/slices/02_FrontOffice_ListerLesComptes/EventHandler';
-import { TodoCreator } from '../../lib/slices/05_BackOffice_VoirLesTodo/toDoCreator';
+import { ToDoCreator } from '../../lib/slices/05_BackOffice_VoirLesTodo/toDoCreator'; // <-- New Import
 
 export default function Home() {
-   const subscriberRef = useRef(null);
+  const subscriberRef = useRef(null);
   const feLoggerRef = useRef(null);
+
+  // New ref for the ToDoCreator
+  const todoCreatorRef = useRef(null);
 
   useEffect(() => {
     // Correctly instantiate and subscribe within the effect to run only once
@@ -39,19 +41,25 @@ export default function Home() {
     const subscriber = accountsProjectionSubscriber;
 
 
+    // Initialize the ToDoCreator
+    if (!todoCreatorRef.current) {
+      ToDoCreator.initialize(); // <-- New Initialization
+      todoCreatorRef.current = true; // Use a boolean to track initialization
+      console.log('[Home] ToDoCreator initialized and subscribed to events.');
+    }
+
     // The cleanup function handles unsubscribing when the component unmounts
     return () => {
       // Unsubscribe from each service to prevent memory leaks and duplicate subscriptions
       subscriberRef.current?.unsubscribe();
       feLoggerRef.current?.unsubscribe();
+      ToDoCreator.unsubscribe(); // <-- New Unsubscribe
     };
   }, []);
 
   return (
     <div className={styles.container}>
       <h1 style={{ textAlign: 'center', marginBottom: '30px' }}>Changement Adresse - Outbox - Inbox - ToDo List</h1>
-
-
 
       {/* FRONT END - PORTAIL NUMERIQUE */}
       <div>
@@ -95,8 +103,8 @@ export default function Home() {
         </div>
       </div>
       <div className={`${styles.card} ${styles.cardLast}`}>
-            <ChangeAddressCommandForm />
-        </div>
+        <ChangeAddressCommandForm />
+      </div>
 
       {/* BACK END - SOFTWARE INFRASTRUCTURE */}
       <div>
@@ -111,7 +119,7 @@ export default function Home() {
         </div>
       </div>
 
-            {/* EVENT TRACKER SECTION */}
+      {/* EVENT TRACKER SECTION */}
       <div>
         <h2 className={styles.sectionHeader}>EVENT TRACKER</h2>
         <div className={styles.eventTrackerContainer}>
